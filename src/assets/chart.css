@@ -1,0 +1,158 @@
+ html, 
+ body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+:root {
+  font-size: 16px;
+}
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header */
+.page > header {
+  display: flex;
+  align-items: center;
+  height: 5vw;
+  padding: 1.5vw;
+
+  outline: 0.25vw solid rgba(0,0,0,0.5);
+}
+
+.page > header > h1 {
+  font-size: 3vw;
+  margin: 0;
+}
+/* End Header */
+
+
+
+.chart {
+  display: flex;
+  margin-top: auto;
+}
+
+
+
+
+/* Seat */
+.seat {
+  position: relative;
+  width: 15em;
+  height: 18em;
+  margin: 1.5em auto;
+
+  outline: 0.25vw solid rgba(0,0,0,0.5);
+}
+
+
+
+
+
+
+/* Family */
+.family {
+  position: relative;
+  margin: auto;
+  outline: 0.25vw solid rgba(0,0,0,0.5);
+}
+
+.family > .children {
+  display: flex;
+  gap: 2em;
+}
+
+/* center -> right bar */
+.children:not(.single) > .family:first-child:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: -1.25em;
+  height: 0.5em;
+
+  background-color: orange;
+}
+
+/* full width bar */
+.children:not(.single) > .family:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1.25em;
+  right: -1.25em;
+  height: 0.5em;
+
+  background-color: orange;
+}
+
+/* left -> center bar */
+.children:not(.single) > .family:last-child:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1.25em;
+  right: 50%;
+  height: 0.5em;
+
+  background-color: orange;
+}
+
+.parent {
+  position: relative;
+}
+
+.parent:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  width: 0.5em;
+  height: 1.5em;
+  background-color: orange;
+}
+
+/* Vertical bar for single child */
+.children.single > .family > .child:before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  width: 0.5em;
+  height: 1.5em;
+  background-color: orange;
+}
+
+.seat.child:before {
+  content: "";
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  width: 0.5em;
+  height: 1.5em;
+  background-color: orange;
+}
+
+footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5vw;
+  padding: 1vw;
+  font-size: 1.75vw;
+}
