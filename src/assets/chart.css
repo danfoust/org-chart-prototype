@@ -34,8 +34,6 @@ body {
   align-items: center;
   height: 5vmin;
   padding: 1vmin;
-
-  outline: 0.1vw solid rgba(0,0,0,0.5);
 }
 
 .page > header > h1 {
@@ -64,7 +62,8 @@ body {
   height: 18em;
   margin: 1.5em auto;
 
-  outline: 0.1vw solid rgba(0,0,0,0.5);
+  box-sizing: border-box;
+  border: 0.1em solid rgba(0,0,0,0.5);
 }
 
 .seat > header {
@@ -83,7 +82,8 @@ body {
 .family {
   position: relative;
   margin: auto;
-  outline: 0.1vw solid rgba(0,0,0,0.5);
+
+  /* outline: 0.1em solid rgba(0,0,0,0.5); */
 }
 
 .family > .children {
@@ -91,6 +91,30 @@ body {
   gap: 2em;
 }
 
+
+
+
+
+/* Parent */
+.parent {
+  position: relative;
+}
+
+.parent:after {
+  content: "";
+  position: absolute;
+  bottom: -1.6em; /* Height - Border width */
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  width: 0.1em;
+  height: 1.5em;
+
+  background-color: orange;
+}
+
+
+/* Children */
 /* center -> right bar */
 .children:not(.single) > .family:first-child:before {
   content: "";
@@ -98,7 +122,7 @@ body {
   top: 0;
   left: 50%;
   right: -1.25em;
-  height: 0.1vw;
+  height: 0.1em;
 
   background-color: orange;
 }
@@ -110,7 +134,7 @@ body {
   top: 0;
   left: -1.25em;
   right: -1.25em;
-  height: 0.1vw;
+  height: 0.1em;
 
   background-color: orange;
 }
@@ -122,24 +146,8 @@ body {
   top: 0;
   left: -1.25em;
   right: 50%;
-  height: 0.1vw;
+  height: 0.1em;
 
-  background-color: orange;
-}
-
-.parent {
-  position: relative;
-}
-
-.parent:after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  right: 50%;
-  transform: translateX(-50%);
-  width: 0.5em;
-  height: 1.5em;
   background-color: orange;
 }
 
@@ -151,23 +159,29 @@ body {
   left: 50%;
   right: 50%;
   transform: translateX(-50%);
-  width: 0.5em;
+  width: 0.1em;
   height: 1.5em;
+
   background-color: orange;
 }
 
 .seat.child:before {
   content: "";
   position: absolute;
-  top: -1.5em;
+  top: -1.6em; /* Height - Border width */
   left: 50%;
   right: 50%;
   transform: translateX(-50%);
-  width: 0.5em;
+  width: 0.1em;
   height: 1.5em;
+
   background-color: orange;
 }
 
+
+
+
+/* Footer */
 footer {
   margin-top: auto;
   display: flex;
