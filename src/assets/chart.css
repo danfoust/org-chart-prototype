@@ -15,20 +15,22 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  page-break-after: always;
 }
 
 /* Header */
 .page > header {
   display: flex;
   align-items: center;
-  height: 5vw;
-  padding: 1.5vw;
+  height: 5vmin;
+  padding: 1vmin;
 
-  outline: 0.25vw solid rgba(0,0,0,0.5);
+  outline: 0.25vmin solid rgba(0,0,0,0.5);
 }
 
 .page > header > h1 {
-  font-size: 3vw;
+  font-size: 3vmin;
   margin: 0;
 }
 /* End Header */
@@ -38,6 +40,7 @@
 .chart {
   display: flex;
   margin-top: auto;
+  overflow: auto;
 }
 
 
@@ -50,11 +53,18 @@
   height: 18em;
   margin: 1.5em auto;
 
-  outline: 0.25vw solid rgba(0,0,0,0.5);
+  outline: 0.25vmin solid rgba(0,0,0,0.5);
 }
 
+.seat > header {
+  padding: 1em;
+  font-size: 1.1em;
+}
 
-
+.seat > ul {
+  padding: 0 0 0 1em;
+  list-style: inside;
+}
 
 
 
@@ -62,7 +72,7 @@
 .family {
   position: relative;
   margin: auto;
-  outline: 0.25vw solid rgba(0,0,0,0.5);
+  outline: 0.25vmin solid rgba(0,0,0,0.5);
 }
 
 .family > .children {
@@ -152,7 +162,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5vw;
+  height: 2vw;
   padding: 1vw;
-  font-size: 1.75vw;
+  font-size: 2.3vmin;
 }

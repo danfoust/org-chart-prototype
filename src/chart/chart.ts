@@ -1,6 +1,7 @@
 import faker from 'faker';
 import fs from 'fs';
 import path from 'path';
+import puppeteer from 'puppeteer';
 
 export interface ChartSeat {
   name: string;
@@ -17,20 +18,24 @@ export function createSeat(): ChartSeat {
 }
 
 export function createTree(seat: ChartSeat, depth: number): void {
-  if (depth > 2) return;
+  if (depth > 5) return;
 
-  const childCount = (depth + 1);
+  const childCount = 2;
   for (let i = 0; i < childCount; i++) {
-    seat.children.push(createSeat());
-  }
+    const childSeat = createSeat();
 
-  seat.children.map(s => createTree(s, depth + 1));
+    createTree(childSeat, depth + 1);
+
+    seat.children.push(childSeat);
+  }
 }
 
-export function getTree(): ChartSeat {
+export function getTree(useCache: boolean): ChartSeat {
   let tree: ChartSeat | null = null;
   
-  tree = JSON.parse(fs.readFileSync(path.resolve('./src/cached-tree.json')).toString());
+  if (useCache) {
+    tree = JSON.parse(fs.readFileSync(path.resolve('./src/cached-tree.json')).toString());
+  }
 
   if (!tree) {
     tree = createSeat();
@@ -64,10 +69,52 @@ export function drawTree(seat: ChartSeat, depth: number): string {
   return `
     <div class="family">
       <div class="${seatClasses.join(' ')}">
-        <header>${seat.name}</header>
-        <ul>${seat.roles.map(r => r).join(' ')}</ul>
+        <header><strong>${seat.name}</strong></header>
+        <ul>${seat.roles.map(r => `<li><span>${r}</span></li>`).join('')}</ul>
       </div>
       ${childHTML}
     </div>
   `;
+}
+
+export function renderPage(tree: ChartSeat): string {
+  return `
+  <html>
+    <head><style>${fs.readFileSync(path.resolve('./src/assets/chart.css'))}</style></head>
+    <body>
+      <div class="page">
+        <header><h1>Brand Name</h1></header>
+        <div class="chart">${drawTree(tree, 0)}</div>
+        <footer>
+          <div class="service">Organization Chart, LLC</div>
+          <div class="copyright">
+            <div>Printed: ${(new Date()).toISOString().slice(0,10)}</div>
+          </div>
+        </footer>
+      </div>
+
+      <script>document.querySelector('body').classList.add('complete');</script>
+    </body>
+  </html>
+  `;
+}
+
+
+export async function renderPDF(html: string, opts: puppeteer.PDFOptions): Promise<Buffer> {
+  const browser = await puppeteer.launch()
+
+  try {
+    const page = await browser.newPage();
+
+    await page.setContent(html);
+
+    await page.waitForSelector('.complete');
+
+    return await page.pdf(opts);
+  } catch (e) {
+    console.error('error rendering pdf: ', e);
+    throw e;
+  } finally {
+    await browser.close();
+  }
 }

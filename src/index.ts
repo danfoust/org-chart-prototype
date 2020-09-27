@@ -1,38 +1,31 @@
 import express from 'express';
-import fs from 'fs';
-import path from 'path';
 
-import { drawTree, getTree } from './chart';
+import {
+  renderPage, 
+  getTree, 
+  renderPDF,
+} from './chart';
 
 const app = express();
 const PORT = 8000;
 
-app.get('/', (req, res) => {
-  const tree = getTree();
-  const html = `
-  <html>
-    <head><style>${fs.readFileSync(path.resolve('./src/assets/chart.css'))}</style></head>
-    <body>
-      <div class="page">
-        <header><h1>Brand Name</h1></header>
-        <div class="chart">
-          ${drawTree(tree, 0)}
-        </div>
-        <footer>
-          <div class="service">Organization Chart, LLC</div>
-          <div class="copyright">
-            <div>Printed: ${(new Date()).toISOString().slice(0,10)}</div>
-            <div>Copyright &copy;</div>
-          </div>
-      </div>
-    </body>
-  </html>
-  `;
-  res.contentType('.html').send(html);
+app.get('/', (_, res) => {
+  const tree = getTree(true);
+  const html = renderPage(tree);
+
+  res.contentType('.html').send(html)
 });
 
-app.get('/pdf', (req, res) => {
-  res.send('Express + TypeScript Server')
+app.get('/pdf', async (_, res) => {
+  const tree = getTree(true);
+  const html = renderPage(tree);
+  const buffer = await renderPDF(html, {
+    width: 8.5 * 96,
+    height: 11 * 96,
+    printBackground: true,
+  });
+
+  res.contentType('application/pdf').send(buffer);
 });
 
 app.listen(PORT, () => {
