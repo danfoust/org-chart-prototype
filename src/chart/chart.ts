@@ -93,7 +93,7 @@ export function renderPage(tree: ChartSeat): string {
         </footer>
       </div>
 
-      <script>document.querySelector('body').classList.add('complete');</script>
+      <script>${fs.readFileSync(path.resolve('./src/assets/chart.js'))}</script>
     </body>
   </html>
   `;

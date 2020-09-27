@@ -1,13 +1,24 @@
- html, 
- body {
+:root {
+  font-size: 16px;
+}
+
+html, 
+body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
 }
 
-:root {
-  font-size: 16px;
+@media print {
+  html,
+  body {
+    overflow: hidden;
+  }
+
+  .page {
+    page-break-after: always;
+  }
 }
 
 .page {
@@ -15,8 +26,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  page-break-after: always;
 }
 
 /* Header */
@@ -26,7 +35,7 @@
   height: 5vmin;
   padding: 1vmin;
 
-  outline: 0.25vmin solid rgba(0,0,0,0.5);
+  outline: 0.1vw solid rgba(0,0,0,0.5);
 }
 
 .page > header > h1 {
@@ -41,6 +50,8 @@
   display: flex;
   margin-top: auto;
   overflow: auto;
+
+  font-size: 0px;
 }
 
 
@@ -53,7 +64,7 @@
   height: 18em;
   margin: 1.5em auto;
 
-  outline: 0.25vmin solid rgba(0,0,0,0.5);
+  outline: 0.1vw solid rgba(0,0,0,0.5);
 }
 
 .seat > header {
@@ -72,7 +83,7 @@
 .family {
   position: relative;
   margin: auto;
-  outline: 0.25vmin solid rgba(0,0,0,0.5);
+  outline: 0.1vw solid rgba(0,0,0,0.5);
 }
 
 .family > .children {
@@ -87,7 +98,7 @@
   top: 0;
   left: 50%;
   right: -1.25em;
-  height: 0.5em;
+  height: 0.1vw;
 
   background-color: orange;
 }
@@ -99,7 +110,7 @@
   top: 0;
   left: -1.25em;
   right: -1.25em;
-  height: 0.5em;
+  height: 0.1vw;
 
   background-color: orange;
 }
@@ -111,7 +122,7 @@
   top: 0;
   left: -1.25em;
   right: 50%;
-  height: 0.5em;
+  height: 0.1vw;
 
   background-color: orange;
 }
